@@ -1,6 +1,6 @@
 ﻿using DataBase.Entities;
 
-namespace Hospital.Services.DataBase
+namespace DataBase.Operations
 {
     public interface IDefaultOperationDbEntity<T>
     {

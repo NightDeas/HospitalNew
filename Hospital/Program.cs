@@ -2,7 +2,7 @@ using Hospital.Data;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using MudBlazor.Services;
 
 namespace Hospital
@@ -18,6 +18,7 @@ namespace Hospital
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddMudServices();
+            builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<DataBase.Operations.PatientOperation>>();
 
             var app = builder.Build();
 

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DataBase.Entities
 {
-    public class Genres : DefaultEntity
+    public class Genre : DefaultEntity
     {
         public string Name { get;set; }
+
+        public virtual Patient Patient { get; set; }
     }
 }

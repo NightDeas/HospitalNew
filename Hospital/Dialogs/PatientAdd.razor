@@ -1,0 +1,71 @@
+﻿<MudDialog Style="width: 600px">
+	<TitleContent>
+		<MudText Color="Color.Tertiary" Typo="Typo.h3">Добавление пациента</MudText>
+	</TitleContent>
+	<DialogContent>
+		<MudForm>
+			<MudGrid>
+				<MudItem xs="6">
+					<MudText Typo="Typo.h5" Color="Color.Primary">Основная информация</MudText>
+
+					<MudTextField @bind-Value="patient.LastName"  Label="Фамилия" Required="true" RequiredError="Не валидное поле: Фамилия" T="string"></MudTextField>
+					<MudTextField @bind-Value="patient.FirstName" Label="Имя" Required="true" RequiredError="Не валидное поле: Имя" T="string"></MudTextField>
+					<MudTextField @bind-Value="patient.Patronymic" HelperText="При наличии" Label="Отчество" Required="false" RequiredError="Не валидное поле: Отчество" T="string"></MudTextField>
+					<MudTextField @bind-Value="patient.DateOfBirth" InputType="InputType.Date" Format="yyyy-MM-dd" Label="Дата рождения" Required="true" RequiredError="Не валидное поле: Дата рождения" T="DateTime"></MudTextField>
+					<MudTextField @bind-Value="patient.Passport" Label="Серия и номер паспорта" Mask="@(new PatternMask("0000 000000"))" Required="true" RequiredError="Не валидное поле: Серия и номер паспорта" T="string"></MudTextField>
+				</MudItem>
+				<MudItem xs="6">
+					<MudStack>
+						<MudItem>
+							<MudText Typo="Typo.h5" Color="Color.Primary">Страховой полис</MudText>
+							<MudTextField @bind-Value="insurancePolicy.Number" HelperText="Страховой полис состоит из 16 цифр" MaxLength="16" Label="Номер страхового полиса" Required="true" RequiredError="Не валидное поле: Номер страхового полиса" T="string"></MudTextField>
+							<MudTextField @bind-Value="insurancePolicy.End" Format="yyyy-MM-dd" InputType="InputType.Date" Label="Дата окончания страхового полиса" Required="true" RequiredError="Не валидное поле: Дата окончания страхового полиса" T="DateTime"></MudTextField>
+						</MudItem>
+						<MudItem>
+							<MudText Typo="Typo.h5" Color="Color.Primary">Для связи</MudText>
+							<MudTextField Label="Почта" Required="false" RequiredError="Не валидное поле: Почта" T="string"></MudTextField>
+							<MudTextField Label="Телефон" Required="false" RequiredError="Не валидное поле: Телефон" T="string"></MudTextField>
+						</MudItem>
+						<MudItem>
+							<MudText Typo="Typo.h5" Color="Color.Primary">Адреса</MudText>
+							<MudTextField Lines="3" Label="Домашний адрес" Required="true" RequiredError="Не валидное поле: Адрес" T="string"></MudTextField>
+							<MudTextField Lines="3" Label="Рабочий адрес" Required="false" RequiredError="Не валидное поле: Рабочий адрес" T="string"></MudTextField>
+						</MudItem>
+					</MudStack>
+				</MudItem>
+			</MudGrid>
+		</MudForm>
+	</DialogContent>
+	<DialogActions>
+		<MudButton Color="Color.Primary" OnClick="CreatePatient">Добавить</MudButton>
+		<MudButton Color="Color.Error">Отмена</MudButton>
+	</DialogActions>
+</MudDialog>
+@using DataBase.Operations
+@using DataBase.Entities
+@inject IDefaultOperationDbEntity<Patient> patientServ;
+@inject IDefaultOperationDbEntity<MedCard> medCardServ;
+@inject IDefaultOperationDbEntity<InsurancePolicy> InsurancePolicyServ;
+@code {
+	DataBase.Entities.Patient patient = new();
+	DataBase.Entities.InsurancePolicy insurancePolicy = new();
+	DataBase.Entities.MedCard medCard = new();
+
+
+	async void CreatePatient()
+	{
+		int tempId = await patientServ.AddAsync(patient);
+		if (tempId == 0)
+			throw new();
+			medCard.PatientId = tempId;
+			insurancePolicy.PatientId = tempId;
+			tempId = await medCardServ.AddAsync(medCard);
+		if (tempId == 0)
+			throw new();
+			tempId = await InsurancePolicyServ.AddAsync(insurancePolicy);
+		if (tempId == 0)
+			throw new();
+
+	}
+
+}

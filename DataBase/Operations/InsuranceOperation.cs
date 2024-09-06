@@ -1,5 +1,4 @@
 ﻿using DataBase.Entities;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations
 {
-	public class PatientOperation : IDefaultOperationDbEntity<Entities.Patient>
+	public class InsuranceOperation : IDefaultOperationDbEntity<InsurancePolicy>
 	{
-		Context Context = new();
-		public async Task<int> AddAsync(Patient Entity)
+		Context context = new();
+		public async Task<int> AddAsync(InsurancePolicy Entity)
 		{
-			Context.Patients.Add(Entity);
-			await Context.SaveChangesAsync();
+			context.Add(Entity);
+			await context.SaveChangesAsync();
 			return Entity.Id;
 		}
 
-		public Task DeleteAsync(Patient Entity)
+		public Task DeleteAsync(InsurancePolicy Entity)
 		{
 			throw new NotImplementedException();
 		}
@@ -28,12 +27,12 @@ namespace DataBase.Operations
 			throw new NotImplementedException();
 		}
 
-		public Task<List<Patient>> GetPatientsAsync()
+		public Task<List<InsurancePolicy>> GetPatientsAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task UpdateAsync(Patient Entity)
+		public Task UpdateAsync(InsurancePolicy Entity)
 		{
 			throw new NotImplementedException();
 		}

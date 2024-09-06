@@ -1,49 +1,106 @@
 ﻿@page "/Patients"
+@inject IDialogService DialogService
 @using System.Net.Http.Json
 
-<MudGrid>
-    <MudItem xs="3">
-        <MudStack>
-            <MudText class="pa-4 mr-16" Align="Align.Center" Typo="Typo.h5">Фильтры</MudText>
-            <MudCheckBox Label="ФИО" Color="Color.Primary" Disabled="true" Value="true"></MudCheckBox>
-            <MudCheckBox Label="Дата рождения" @bind-Value="dateOfBirthColumnVisibile"></MudCheckBox>
-            <MudCheckBox Label="Адрес" Value="true"></MudCheckBox>
-        </MudStack>
-    </MudItem>
-    <MudItem xs="9">
-        <MudDataGrid Items="@patients">
-            <Columns>
-                <PropertyColumn Property="x => x.FullName" Title="ФИО" />
-                <PropertyColumn Hidden="@(!dateOfBirthColumnVisibile)" Property="x => x.DateOfBirth" Title="Дата рождения" />
-                <PropertyColumn Property="x => x.Address" Title="Адрес" />
-                <PropertyColumn Property="x => x.WorkAddress" Title="Рабочий адрес" />
-                <PropertyColumn Property="x => x.Telephone" Title="Телефон" />
-                <PropertyColumn Property="x => x.Email" Title="Почта" />
-                <PropertyColumn Property="x => x.GenreId" Title="Пол" />
-                <PropertyColumn Property="x => x.Passport" Title="Паспорт" />
-            </Columns>
-        </MudDataGrid>
-    </MudItem>
+<MudGrid Spacing="6">
+	<MudItem xs="3">
+		<MudStack>
+			<MudText class="pa-4 m-16" Align="Align.Center" Color="Color.Primary" Typo="Typo.h5">Настройки</MudText>
+			<MudTreeView T="string">
+				<MudTreeViewItem Text="Отображение полей">
+					<MudTreeView CheckBoxColor="Color.Info" Text="Отображение полей">
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="dateOfBirthColumnVisible" Label="Дата рождения"></MudCheckBox>
+							</Content>
+						</MudTreeViewItem>
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="@adressColumnVisible" Label="Адрес"></MudCheckBox>
+							</Content>
+						</MudTreeViewItem>
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="workAdressColumnVisible" Label="Рабочий адрес"></MudCheckBox>
+							</Content>
+						</MudTreeViewItem>
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="telephoneColumnVisible" Label="Телефон" />
+							</Content>
+						</MudTreeViewItem>
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="passportColumnVisible" Label="Паспорт" />
+							</Content>
+						</MudTreeViewItem>
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="genreColumnVisible" Label="Пол"></MudCheckBox>
+							</Content>
+						</MudTreeViewItem>
+						<MudTreeViewItem>
+							<Content>
+								<MudCheckBox @bind-Value="mailColumnVisible" Label="Почтsа"></MudCheckBox>
+							</Content>
+						</MudTreeViewItem>
+					</MudTreeView>
+				</MudTreeViewItem>
+			</MudTreeView>
+		</MudStack>
+	</MudItem>
+	<MudItem xs="8">
+		<MudPaper class="pa-5 ma-2" style="height: 80vh" Outlined="true">
+			<MudDataGrid Items="@patients">
+				<Columns>
+					<PropertyColumn Property="x => x.FullName" Title="ФИО" />
+					<PropertyColumn Property="x => x.DateOfBirth" Hidden="@(!dateOfBirthColumnVisible)" Title="Дата рождения" />
+					<PropertyColumn Property="x => x.Address" Hidden="@(!adressColumnVisible)" Title="Адрес" />
+					<PropertyColumn Property="x => x.WorkAddress" Hidden="@(!workAdressColumnVisible)" Title="Рабочий адрес" />
+					<PropertyColumn Property="x => x.Telephone" Hidden="@(!telephoneColumnVisible)" Title="Телефон" />
+					<PropertyColumn Property="x => x.Email" Hidden="@(!mailColumnVisible)" Title="Почта" />
+					<PropertyColumn Property="x => x.Genre.Name" Hidden="@(!genreColumnVisible)" Title="Пол" />
+					<PropertyColumn Property="x => x.Passport" Hidden="@(!passportColumnVisible)" Title="Паспорт" />
+				</Columns>
+			</MudDataGrid>
+		</MudPaper>
+	</MudItem>
+	<MudItem xs="12" Style="height: 10vh">
+		<MudGrid Justify="Justify.Center">
+			<MudButton OnClick="OpenDialogAddPatient" Color="Color.Primary">Добавить</MudButton>
+		</MudGrid>
+	</MudItem>
 </MudGrid>
 
 @code {
-    bool dateOfBirthColumnVisibile = true;
+	bool dateOfBirthColumnVisible = true;
+	bool telephoneColumnVisible = true;
+	bool mailColumnVisible = false;
+	bool passportColumnVisible = false;
+	bool adressColumnVisible = true;
+	bool workAdressColumnVisible = false;
+	bool genreColumnVisible = false;
 
 
-    public int _spcaing = 6;
-    List<DataBase.Entities.Patient> patients = new()
-    {
-        new()
-        {
-            FirstName = "1",
-            DateOfBirth = DateTime.Now,
-            Address = "123213"
-        },
-        new()
-        {
-            FirstName = "2",
-            DateOfBirth = DateTime.Now,
-            Address = "123213"
-        }
-    };
+	public int _spcaing = 6;
+	List<DataBase.Entities.Patient> patients = new()
+	{
+		new()
+		{
+			FirstName = "1",
+			DateOfBirth = DateTime.Now,
+			Address = "123213"
+		},
+		new()
+		{
+			FirstName = "2",
+			DateOfBirth = DateTime.Now,
+			Address = "123213"
+		}
+	};
+	public Task OpenDialogAddPatient()
+	{
+		var options = new DialogOptions() { CloseOnEscapeKey = true };
+		return DialogService.ShowAsync<Dialogs.PatientAdd>("test", options);
+	}
 }

@@ -25,5 +25,9 @@ namespace DataBase.Entities
         public string Email { get; set; }
         public int GenreId { get; set; }
 
+
+        public virtual Genre Genre { get; set; }
+        public virtual InsurancePolicy InsurancePolicy{ get;set;} 
+        public virtual MedCard MedCard{ get; set; }
     }
 }
