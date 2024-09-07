@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations
 {
-	public class PatientOperation : IDefaultOperationDbEntity<Entities.Patient>
+	public class PatientOperationService : IDefaultOperationDbEntity<Entities.Patient>
 	{
 		Context Context = new();
 		public async Task<int> AddAsync(Patient Entity)
 		{
 			Context.Patients.Add(Entity);
+			Entity.GenreId = 1;
 			await Context.SaveChangesAsync();
 			return Entity.Id;
 		}

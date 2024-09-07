@@ -1,0 +1,13 @@
+﻿@page "/genreControl"
+
+<MudSelect T="int" @bind-Value="_selectId">
+	@foreach (var gerne in )
+</MudSelect>
+		@code {
+		List<DataBase.Entities.Genre> genres = new();
+		protected override Task OnInitializedAsync()
+		{
+			genres = DataBase.Operations.
+		}
+		int _selectId = 0;
+}

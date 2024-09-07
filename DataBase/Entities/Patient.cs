@@ -8,14 +8,19 @@ namespace DataBase.Entities
     [PrimaryKey("Id")]
     public partial class Patient : DefaultEntity
     {
-        [Required]
+		public Patient()
+		{
+            DateOfBirth = DateTime.Now;
+		}
+
+		[Required]
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Patronymic { get; set; }
 
         public DateTime DateOfBirth { get; set; }
-        [MaxLength(10)]
-        [MinLength(10)]
+        [MaxLength(11)]
+        [MinLength(11)]
         public string Passport { get; set; }
         public string Address { get; set; }
         public string WorkAddress { get; set; }

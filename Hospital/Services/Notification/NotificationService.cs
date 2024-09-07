@@ -15,16 +15,20 @@ namespace Hospital.Services.Notification
 			Error,
 			Info
 		}
-		private ISnackbar _snackbar { get; set; }
-		SnackbarOptions Config = new CommonSnackbarOptions()
+		Action<SnackbarOptions>Options;
+		public void Config()
 		{
-			VisibleStateDuration = 10000,
-			ShowTransitionDuration = 500,
-			HideTransitionDuration = 500,
-		};
+			Options = (SnackbarOptions options) =>
+			{
+				options.VisibleStateDuration = 10000;
+				options.ShowTransitionDuration = 500;
+				options.HideTransitionDuration = 500;
+			};
+		}
+		private ISnackbar _snackbar;
 
 
-		public MudSnackbarElement Create(Type type, string text)
+		public void Create(Type type, string text)
 		{
 			Severity severity = Severity.Normal;
 			switch (type)
@@ -46,9 +50,7 @@ namespace Hospital.Services.Notification
 					Debug.WriteLine("Присвоено значение severity в MudSnackbarElement > Create по умолчанию");
 					break;
 			}
-			_snackbar.Add(text, severity, Config);
-
-			return null;
+			_snackbar.Add(text, severity, Options);
 		}
 	}
 }

@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations
 {
-	public class MedCardOperation : IDefaultOperationDbEntity<MedCard>
+	internal class GenreOperationService : IDefaultOperationDbEntity<DataBase.Entities.Genre>
 	{
 		Context context = new();
-		public async Task<int> AddAsync(MedCard Entity)
+
+		public Task<int> AddAsync(Genre Entity)
 		{
-			context.MedCards.Add(Entity);
-			await context.SaveChangesAsync();
-			return Entity.Id;
+			throw new NotImplementedException();
 		}
 
-		public Task DeleteAsync(MedCard Entity)
+		public Task DeleteAsync(Genre Entity)
 		{
 			throw new NotImplementedException();
 		}
@@ -27,12 +26,17 @@ namespace DataBase.Operations
 			throw new NotImplementedException();
 		}
 
-		public Task<List<MedCard>> GetPatientsAsync()
+		public Task<Genre> Get(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task UpdateAsync(MedCard Entity)
+		public Task<List<Genre>> GetAll()
+		{
+
+		}
+
+		public Task UpdateAsync(Genre Entity)
 		{
 			throw new NotImplementedException();
 		}

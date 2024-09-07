@@ -1,3 +1,6 @@
+using DataBase;
+using DataBase.Entities;
+using DataBase.Operations;
 using Hospital.Data;
 
 using Microsoft.AspNetCore.Components;
@@ -18,8 +21,11 @@ namespace Hospital
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddMudServices();
-            builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<DataBase.Operations.PatientOperation>>();
-
+            builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<Patient>, PatientOperationService>();
+            builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<MedCard>, MedCardOperationService>();
+            builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<InsurancePolicy>, InsuranceOperationService>();
+            builder.Services.AddDbContext<Context>();
+            builder.Services.AddSingleton<Services.Notification.NotificationService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

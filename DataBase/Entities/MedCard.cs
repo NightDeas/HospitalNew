@@ -4,7 +4,12 @@ namespace DataBase.Entities
 {
     public class MedCard : DefaultEntity
     {
-        public DateTime Created { get; set; }
+		public MedCard()
+		{
+            Created = DateTime.Now;
+		}
+
+		public DateTime Created { get; set; }
 
         public DateTime Updated { get; set; }
 
