@@ -13,6 +13,7 @@
 					<MudTextField @bind-Value="patient.Patronymic" HelperText="При наличии" Label="Отчество" Required="false" RequiredError="Не валидное поле: Отчество" T="string"></MudTextField>
 					<MudTextField @bind-Value="patient.DateOfBirth" InputType="InputType.Date" Format="yyyy-MM-dd" Label="Дата рождения" Required="true" RequiredError="Не валидное поле: Дата рождения" T="DateTime"></MudTextField>
 					<MudTextField @bind-Value="patient.Passport" Label="Серия и номер паспорта" Mask="@(new PatternMask("0000 000000"))" Required="true" RequiredError="Не валидное поле: Серия и номер паспорта" T="string"></MudTextField>
+					<GenreControl @bind-Value="patient.GenreId"></GenreControl>
 				</MudItem>
 				<MudItem xs="6">
 					<MudStack>

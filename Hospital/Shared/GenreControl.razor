@@ -1,13 +1,41 @@
 ﻿@page "/genreControl"
+@using DataBase.Operations
+@using DataBase.Entities
+@inject IDefaultOperationDbEntity<Genre> genreOperation
+<MudText Typo="Typo.h5" Color="Color.Primary">Пол</MudText>
+@* <MudSelect Variant="Variant.Filled" OnClose="CloseMudSelect" Text="" HelperText="Выберите пол человека" T="int" @bind-Value="Value" >
+	@foreach (var genre in genres)
+	{
+		<MudSelectItem Value="genre.Id"></MudSelectItem>
+	}
+</MudSelect> *@
+@code {
+	List<DataBase.Entities.Genre> genres = new();
+	protected async override Task OnInitializedAsync()
+	{
+		genres = await genreOperation.GetAll();
+	}
 
-<MudSelect T="int" @bind-Value="_selectId">
-	@foreach (var gerne in )
-</MudSelect>
-		@code {
-		List<DataBase.Entities.Genre> genres = new();
-		protected override Task OnInitializedAsync()
+	void CloseMudSelect()
+	{
+
+	}
+
+	[Parameter]
+	public EventCallback<int> ValueChanged { get; set; }
+
+	public int selectId;
+	[Parameter]
+	public int Value
+	{
+		get => selectId; set
 		{
-			genres = DataBase.Operations.
+			selectId = value;
+			ValueChanged.InvokeAsync(value);
+
+
 		}
-		int _selectId = 0;
+	}
+
+
 }

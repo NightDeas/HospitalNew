@@ -27,6 +27,16 @@ namespace DataBase.Operations
 			throw new NotImplementedException();
 		}
 
+		public Task<MedCard> Get(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<List<MedCard>> GetAll()
+		{
+			throw new NotImplementedException();
+		}
+
 		public Task<List<MedCard>> GetPatientsAsync()
 		{
 			throw new NotImplementedException();

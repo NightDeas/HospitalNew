@@ -24,6 +24,7 @@ namespace Hospital
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<Patient>, PatientOperationService>();
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<MedCard>, MedCardOperationService>();
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<InsurancePolicy>, InsuranceOperationService>();
+            builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<Genre>, GenreOperationService>();
             builder.Services.AddDbContext<Context>();
             builder.Services.AddSingleton<Services.Notification.NotificationService>();
             var app = builder.Build();

@@ -27,6 +27,16 @@ namespace DataBase.Operations
 			throw new NotImplementedException();
 		}
 
+		public Task<InsurancePolicy> Get(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<List<InsurancePolicy>> GetAll()
+		{
+			throw new NotImplementedException();
+		}
+
 		public Task<List<InsurancePolicy>> GetPatientsAsync()
 		{
 			throw new NotImplementedException();
