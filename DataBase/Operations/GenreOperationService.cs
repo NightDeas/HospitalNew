@@ -1,4 +1,7 @@
 ﻿using DataBase.Entities;
+
+using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations
 {
-	internal class GenreOperationService : IDefaultOperationDbEntity<DataBase.Entities.Genre>
+	public class GenreOperationService : IDefaultOperationDbEntity<DataBase.Entities.Genre>
 	{
 		Context context = new();
 
@@ -33,7 +36,7 @@ namespace DataBase.Operations
 
 		public Task<List<Genre>> GetAll()
 		{
-
+			return context.Genres.ToListAsync();
 		}
 
 		public Task UpdateAsync(Genre Entity)

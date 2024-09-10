@@ -1,13 +1,23 @@
 ﻿@page "/genreControl"
-
-<MudSelect T="int" @bind-Value="_selectId">
-	@foreach (var gerne in )
-</MudSelect>
-		@code {
-		List<DataBase.Entities.Genre> genres = new();
-		protected override Task OnInitializedAsync()
-		{
-			genres = DataBase.Operations.
-		}
-		int _selectId = 0;
+@using DataBase.Entities;
+@inject DataBase.Operations.IDefaultOperationDbEntity<Genre> genreServ;
+<RadzenDropDown Data="@genres" @bind-Value="value"></RadzenDropDown>
+@code {
+    List<DataBase.Entities.Genre> genres = new();
+    protected async override Task OnInitializedAsync()
+    {
+        genres = await genreServ.GetAll();
+    }
+    int value = 0;
+    [Parameter]
+    public EventCallback<int> EventCallback { get; set; }
+    [Parameter]
+    public int ValueChanged
+    {
+        get => value; set
+        {
+            this.value = value;
+            EventCallback.InvokeAsync(this.value);
+        }
+    }
 }

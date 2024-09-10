@@ -1,4 +1,5 @@
-﻿<MudDialog Style="width: 600px">
+﻿@page "/patientAdd"
+<MudDialog Style="width: 600px">
 	<TitleContent>
 		<MudText Color="Color.Tertiary" Typo="Typo.h3">Добавление пациента</MudText>
 	</TitleContent>
@@ -7,13 +8,13 @@
 			<MudGrid>
 				<MudItem xs="6">
 					<MudText Typo="Typo.h5" Color="Color.Primary">Основная информация</MudText>
-
 					<MudTextField @bind-Value="patient.LastName" Label="Фамилия" Required="true" RequiredError="Не валидное поле: Фамилия" T="string"></MudTextField>
 					<MudTextField @bind-Value="patient.FirstName" Label="Имя" Required="true" RequiredError="Не валидное поле: Имя" T="string"></MudTextField>
 					<MudTextField @bind-Value="patient.Patronymic" HelperText="При наличии" Label="Отчество" Required="false" RequiredError="Не валидное поле: Отчество" T="string"></MudTextField>
 					<MudTextField @bind-Value="patient.DateOfBirth" InputType="InputType.Date" Format="yyyy-MM-dd" Label="Дата рождения" Required="true" RequiredError="Не валидное поле: Дата рождения" T="DateTime"></MudTextField>
 					<MudTextField @bind-Value="patient.Passport" Label="Серия и номер паспорта" Mask="@(new PatternMask("0000 000000"))" Required="true" RequiredError="Не валидное поле: Серия и номер паспорта" T="string"></MudTextField>
 				</MudItem>
+				<GenreControl @bind-ValueChanged="patient.GenreId"></GenreControl>
 				<MudItem xs="6">
 					<MudStack>
 						<MudItem>
