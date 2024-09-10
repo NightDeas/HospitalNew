@@ -1,5 +1,7 @@
 ﻿using DataBase.Entities;
+
 using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations
 {
-	/// <summary>
-	/// Операции над полом человека (мужской, женский пример)
-	/// </summary>
-	public class GenreOperationService : IDefaultOperationDbEntity<DataBase.Entities.Genre>
+	internal class GenreOperationService : IDefaultOperationDbEntity<DataBase.Entities.Genre>
 	{
 		Context context = new();
 
@@ -37,8 +36,7 @@ namespace DataBase.Operations
 
 		public async Task<List<Genre>> GetAll()
 		{
-			var list = await context.Genres.ToListAsync();
-			return list;
+
 		}
 
 		public Task UpdateAsync(Genre Entity)

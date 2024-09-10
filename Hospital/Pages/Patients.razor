@@ -1,5 +1,6 @@
 ﻿@page "/Patients"
 @inject IDialogService DialogService
+@* @inject Radzen.DialogService DialogService; *@
 @inject ISnackbar SnackBarService
 @inject Services.Notification.NotificationService NotificationService;
 @using System.Net.Http.Json
@@ -102,7 +103,7 @@
 	};
 	public Task OpenDialogAddPatient()
 	{
-		var options = new DialogOptions() { CloseOnEscapeKey = true };
+		var options = new MudBlazor.DialogOptions() { CloseOnEscapeKey = true };
 		return DialogService.ShowAsync<Dialogs.PatientAdd>("test", options);
 	}
 }

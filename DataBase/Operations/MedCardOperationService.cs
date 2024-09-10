@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations
 {
-	public class MedCardOperationService : IDefaultOperationDbEntity<MedCard>
+    public class MedCardOperationService : IDefaultOperationDbEntity<MedCard>
 	{
 		Context context = new();
 		public async Task<int> AddAsync(MedCard Entity)
@@ -27,17 +27,17 @@ namespace DataBase.Operations
 			throw new NotImplementedException();
 		}
 
-		public Task<MedCard> Get(int id)
-		{
-			throw new NotImplementedException();
-		}
+        public Task<MedCard> Get(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task<List<MedCard>> GetAll()
-		{
-			throw new NotImplementedException();
-		}
+        public Task<List<MedCard>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
 
-		public Task<List<MedCard>> GetPatientsAsync()
+        public Task<List<MedCard>> GetPatientsAsync()
 		{
 			throw new NotImplementedException();
 		}

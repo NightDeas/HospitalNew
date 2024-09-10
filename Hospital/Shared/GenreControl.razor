@@ -1,41 +1,23 @@
 ﻿@page "/genreControl"
-@using DataBase.Operations
-@using DataBase.Entities
-@inject IDefaultOperationDbEntity<Genre> genreOperation
-<MudText Typo="Typo.h5" Color="Color.Primary">Пол</MudText>
-@* <MudSelect Variant="Variant.Filled" OnClose="CloseMudSelect" Text="" HelperText="Выберите пол человека" T="int" @bind-Value="Value" >
-	@foreach (var genre in genres)
-	{
-		<MudSelectItem Value="genre.Id"></MudSelectItem>
-	}
-</MudSelect> *@
+@using DataBase.Entities;
+@inject DataBase.Operations.IDefaultOperationDbEntity<Genre> genreServ;
+<RadzenDropDown Data="@genres" @bind-Value="value"></RadzenDropDown>
 @code {
-	List<DataBase.Entities.Genre> genres = new();
-	protected async override Task OnInitializedAsync()
-	{
-		genres = await genreOperation.GetAll();
-	}
-
-	void CloseMudSelect()
-	{
-
-	}
-
-	[Parameter]
-	public EventCallback<int> ValueChanged { get; set; }
-
-	public int selectId;
-	[Parameter]
-	public int Value
-	{
-		get => selectId; set
-		{
-			selectId = value;
-			ValueChanged.InvokeAsync(value);
-
-
-		}
-	}
-
-
+    List<DataBase.Entities.Genre> genres = new();
+    protected async override Task OnInitializedAsync()
+    {
+        genres = await genreServ.GetAll();
+    }
+    int value = 0;
+    [Parameter]
+    public EventCallback<int> EventCallback { get; set; }
+    [Parameter]
+    public int ValueChanged
+    {
+        get => value; set
+        {
+            this.value = value;
+            EventCallback.InvokeAsync(this.value);
+        }
+    }
 }
