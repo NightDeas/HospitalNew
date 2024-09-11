@@ -1,4 +1,10 @@
 ﻿@page "/patientAdd"
+@using DataBase.Operations
+@using DataBase.Entities
+@inject IDefaultOperationDbEntity<Patient> patientServ;
+@inject IDefaultOperationDbEntity<MedCard> medCardServ;
+@inject IDefaultOperationDbEntity<InsurancePolicy> InsurancePolicyServ;
+@inject DataBase.Context context;
 <MudDialog Style="width: 600px">
 	<TitleContent>
 		<MudText Color="Color.Tertiary" Typo="Typo.h3">Добавление пациента</MudText>
@@ -15,7 +21,6 @@
 					<MudTextField @bind-Value="patient.Passport" Label="Серия и номер паспорта" Mask="@(new PatternMask("0000 000000"))" Required="true" RequiredError="Не валидное поле: Серия и номер паспорта" T="string"></MudTextField>
 					<GenreControl @bind-Value="patient.GenreId"></GenreControl>
 				</MudItem>
-				<GenreControl @bind-ValueChanged="patient.GenreId"></GenreControl>
 				<MudItem xs="6">
 					<MudStack>
 						<MudItem>
@@ -43,12 +48,6 @@
 		<MudButton Color="Color.Error">Отмена</MudButton>
 	</DialogActions>
 </MudDialog>
-@using DataBase.Operations
-@using DataBase.Entities
-@inject IDefaultOperationDbEntity<Patient> patientServ;
-@inject IDefaultOperationDbEntity<MedCard> medCardServ;
-@inject IDefaultOperationDbEntity<InsurancePolicy> InsurancePolicyServ;
-@inject DataBase.Context context;
 @code {
 	DataBase.Entities.Patient patient = new();
 	DataBase.Entities.InsurancePolicy insurancePolicy = new();
