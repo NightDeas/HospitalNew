@@ -6,6 +6,7 @@ using Hospital.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
 using Radzen;
@@ -24,11 +25,11 @@ namespace Hospital
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddMudServices();
             builder.Services.AddRadzenComponents();
+            builder.Services.AddDbContext<Context>(options => options.UseSqlServer(""));
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<Patient>, PatientOperationService>();
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<MedCard>, MedCardOperationService>();
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<Genre>, GenreOperationService>();
             builder.Services.AddScoped<DataBase.Operations.IDefaultOperationDbEntity<InsurancePolicy>, InsuranceOperationService>();
-            builder.Services.AddDbContext<Context>();
             builder.Services.AddSingleton<Services.Notification.NotificationService>();
             var app = builder.Build();
 
